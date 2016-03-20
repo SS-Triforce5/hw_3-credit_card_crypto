@@ -1,6 +1,7 @@
 require_relative '../credit_card'
 require_relative '../substitution_cipher'
 require_relative '../double_trans_cipher'
+require_relative '../aes_cipher'
 require 'minitest/autorun'
 
 describe 'Test card info encryption' do
@@ -13,7 +14,8 @@ describe 'Test card info encryption' do
   ciphers = [
     ['Caesar cipher', SubstitutionCipher::Caesar],
     ['Permutation cipher',SubstitutionCipher::Permutation],
-    ['Double transposition cipher', DoubleTranspositionCipher]
+    ['Double transposition cipher', DoubleTranspositionCipher],
+    ['AES cipher', AesCipher]
   ]
   ciphers.each do |name,method|
     describe 'Using #{name}' do
@@ -28,6 +30,6 @@ describe 'Test card info encryption' do
         dec = method.decrypt(enc, @key)
         dec.must_equal @cc.to_s
       end
-    end  
+    end
   end
 end
