@@ -1,5 +1,6 @@
 require_relative './luhn_validator.rb'
 require 'json'
+require 'openssl'
 
 class CreditCard
   # TODO: mixin the LuhnValidator using an 'include' statement
@@ -44,12 +45,13 @@ include LuhnValidator
     # TODO: Produce a hash (using default hash method) of the credit card's
     #       serialized contents.
     #       Credit cards with identical information should produce the same hash.
-      self.to_s.hash
+    self.to_s.hash
   end
 
   # return a cryptographically secure hash
   def hash_secure
     # TODO: Use sha256 from openssl to create a cryptographically secure hash.
     #       Credit cards with identical information should produce the same hash.
+    OpenSSL::Digest::SHA256.digest(self.to_s)
   end
 end
