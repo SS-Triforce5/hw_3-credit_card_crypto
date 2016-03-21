@@ -1,6 +1,8 @@
 require 'openssl'
 require 'json'
 require 'base64'
+
+# AES Cipher
 module AesCipher
   def self.encrypt(document, key)
     # TODO: Return JSON string of array: [iv, ciphertext]
