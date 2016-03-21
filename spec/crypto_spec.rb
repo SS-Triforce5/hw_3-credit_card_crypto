@@ -18,8 +18,8 @@ describe 'Test card info encryption' do
     ['Double transposition cipher', DoubleTranspositionCipher],
     ['AES cipher', AesCipher]
   ]
-  ciphers.each do |name, method|
-    describe 'Using #{name}' do
+  ciphers.each do |_name, method|
+    describe 'Using #{_name}' do
       it 'should encrypt card information' do
         enc = method.encrypt(@cc, @key)
         enc.wont_equal @cc.to_s

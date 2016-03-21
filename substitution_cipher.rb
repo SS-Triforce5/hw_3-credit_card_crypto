@@ -38,7 +38,7 @@ module SubstitutionCipher
       # TODO: encrypt string using a permutation cipher
       permutation_table = Array(0..127).shuffle(random: Random.new(key))
       # create the permutation table
-      document.to_s.each_byte.map { |char| permutation_table[char].chr }.join
+      document.to_s.each_byte.map { |c| permutation_table[c].chr }.join
       # encrypt the document according to the permutation table
     end
 
@@ -51,7 +51,7 @@ module SubstitutionCipher
       # TODO: decrypt string using a permutation cipher
       permutation_table = Array(0..127).shuffle(random: Random.new(key))
       # create the permutation table
-      document.to_s.each_byte.map { |char| permutation_table.index(char).chr }.join
+      document.to_s.each_byte.map { |c| permutation_table.index(c).chr }.join
       # decrypt the real value according to the index
     end
   end

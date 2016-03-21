@@ -1,11 +1,13 @@
 # DoubleTranspositionCipher
 module DoubleTranspositionCipher
   def self.row_exchange(matrix, random_key)
-      matrix.each_with_index.map {|row,i| [random_key[i],row]}.sort.map {|k,v| v}
+    m = matrix.each_with_index.map { |row, i| [random_key[i], row] }
+    m.sort.map { |_k, v| v }
   end
 
   def self.row_unexchange(matrix, random_key)
-      matrix.each_with_index.map {|row,i| [random_key.index(i),row]}.sort.map {|k,v| v}
+    m = matrix.each_with_index.map { |row, i| [random_key.index(i), row] }
+    m.sort.map { |_k, v| v }
   end
 
   def self.encrypt(document, key)
@@ -14,8 +16,8 @@ module DoubleTranspositionCipher
     document += ' ' * (matrix_length**2 - document.length)
     matrix = document.chars.each_slice(matrix_length).to_a
     row_sorted_matrix = row_exchange(matrix, random_key)
-    col_sorted_matrix = row_exchange(row_sorted_matrix.transpose, random_key).transpose
-    col_sorted_matrix.map(&:join).join
+    col_sorted_matrix = row_exchange(row_sorted_matrix.transpose, random_key)
+    col_sorted_matrix.transpose.map(&:join).join
   end
 
   def self.decrypt(ciphertext, key)
