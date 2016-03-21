@@ -2,9 +2,10 @@ require_relative './luhn_validator.rb'
 require 'json'
 require 'openssl'
 
+# Credit Card
 class CreditCard
   # TODO: mixin the LuhnValidator using an 'include' statement
-include LuhnValidator
+  include LuhnValidator
   # instance variables with automatic getter/setter methods
   attr_accessor :number, :expiration_date, :owner, :credit_network
 
@@ -18,12 +19,12 @@ include LuhnValidator
 
   # returns json string
   def to_json
+    # TODO: setup the hash with all instance vairables to serialize into json
     {
-      :number => number,
-      :expiration_date => expiration_date,
-      :owner => owner,
-      :credit_network => credit_network
-      # TODO: setup the hash with all instance vairables to serialize into json
+      number: number,
+      expiration_date: expiration_date,
+      owner: owner,
+      credit_network: credit_network
     }.to_json
   end
 
@@ -37,7 +38,7 @@ include LuhnValidator
     # TODO: deserializing a CreditCard object
     card = JSON.parse(card_s.to_s)
     CreditCard.new(card['number'], card['expiration_date'],
-                 card['owner'], card['credit_network'])
+                   card['owner'], card['credit_network'])
   end
 
   # return a hash of the serialized credit card object
@@ -46,7 +47,7 @@ include LuhnValidator
     #   - Produce a hash (using default hash method) of the credit card's
     #     serialized contents.
     #   - Credit cards with identical information should produce the same hash
-    self.to_s.hash
+    to_s.hash
   end
 
   # return a cryptographically secure hash
@@ -54,6 +55,6 @@ include LuhnValidator
     # TODO: implement this method
     #   - Use sha256 from openssl to create a cryptographically secure hash.
     #   - Credit cards with identical information should produce the same hash
-    OpenSSL::Digest::SHA256.digest(self.to_s)
+    OpenSSL::Digest::SHA256.digest(to_s)
   end
 end
